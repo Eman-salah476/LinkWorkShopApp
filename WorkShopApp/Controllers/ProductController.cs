@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WorkShopApp.Models;
 using WorkShopApp.Services.Interfaces;
@@ -23,15 +19,22 @@ namespace WorkShopApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var fetchedProducts = await _productService.GetProducts(1);
-            return View(fetchedProducts);
+            ViewBag.Categories = new SelectList( await _categoryService.GetCategories(), "Id", "Name");
+            //var fetchedProducts = await _productService.GetProducts(1);
+            var fetchedProducts = await _productService.GetProducts();
+            var FilteredProducts = _productService.FilterProducts(fetchedProducts, 1);
+            return View(FilteredProducts);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(int pageIndex)
+        public async Task<IActionResult> Index(int pageIndex, int? categoryId)
         {
-            var fetchedProducts = await _productService.GetProducts(pageIndex);
-            return View(fetchedProducts);
+            ViewBag.Categories = new SelectList(await _categoryService.GetCategories(), "Id", "Name");
+            var fetchedProducts = await _productService.GetProducts(categoryId);
+            var FilteredProducts = _productService.FilterProducts(fetchedProducts, pageIndex);
+            FilteredProducts.CategoryId = categoryId;
+            //var fetchedProducts = await _productService.GetProducts(pageIndex, categoryId);
+            return View(FilteredProducts);
         }
 
         public async Task<IActionResult> Create()

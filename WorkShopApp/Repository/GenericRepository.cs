@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WorkShopApp.Data;
 using WorkShopApp.Repository.Interfaces;
@@ -55,19 +56,20 @@ namespace WorkShopApp.Repository
             }
         }
 
-        public async Task Update(T entity)
+        public async Task<List<T>> FindByCondition(Expression<Func<T, bool>> expression = null)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException($"{nameof(Update)} entity must not be null");
-            }
             try
             {
-                _context.Set<T>().Update(entity);
+                IQueryable<T> query = _context.Set<T>();
+
+                if (expression != null)
+                    query = query.Where(expression);
+
+                return await query.ToListAsync();
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(entity)} could not be updated: {ex.Message}");
+                throw new Exception($"Couldn't Retrieve Data:{ex.Message}");
             }
         }
 

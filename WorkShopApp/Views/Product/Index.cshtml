@@ -2,6 +2,7 @@
 @model WorkShopApp.Dtos.ProductModel;
 @{
     ViewData["Title"] = "Index";
+    var categories = ViewBag.Categories;
 }
 
 
@@ -11,6 +12,13 @@
     <div>
         <form asp-action="Index" asp-controller="Product" method="post">
 
+            <div class="row">
+                <select class="form-select" asp-for="CategoryId" asp-items="@categories" id="selectedCategory">
+                    <option value="@DBNull.Value">All</option>
+                </select>
+            </div>
+
+
             @foreach (var product in Model.Products)
             {
                 <div class="card row">
@@ -19,7 +27,6 @@
                             <h5 class="card-title">@product.Name</h5>
                             <span>@product.Price</span>
                         </div>
-                        <h6 class="card-subtitle mb-2 text-muted">@product.CategoryId</h6>
                         <p class="card-text">@product.Description</p>
                         <a href="#" class="card-link">Buy</a>
                     </div>
@@ -34,7 +41,6 @@
                             @if (i != Model.CurrentPageIndex)
                             {
                                 <a class="PageIndex" href="javascript:FetchData(@i);">@i</a>
-                                @*<a class="PageIndex" href="#">@i</a>*@
                             }
                             else
                             {
@@ -44,7 +50,7 @@
                     }
                 </tr>
             </table>
-            <input type="hidden" id="CurrentPageIndex" name="pageIndex"/>
+            <input type="hidden" id="CurrentPageIndex" name="pageIndex" />
         </form>
     </div>
 
@@ -54,13 +60,10 @@
 
 @section Scripts {
     <script>
-        //$(".PageIndex").click(function (e) {
-        //    console.log(this.value);
-        //    //let currentPageIndex = this.value;
-
-        //    //document.getElementById("CurrentPageIndex").value = this.value;
-        //    //document.forms[0].submit();
-        //});
+        $("#selectedCategory").change(function () {
+            document.getElementById("CurrentPageIndex").value = 1;
+            document.forms[0].submit();
+        })
         function FetchData(index) {
             console.log(index);
             document.getElementById("CurrentPageIndex").value = index;

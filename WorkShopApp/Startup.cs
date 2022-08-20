@@ -37,7 +37,6 @@ namespace WorkShopApp
             //Configure Repository
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<IProductRepository, ProductRepository>();
             //Configure Services
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
