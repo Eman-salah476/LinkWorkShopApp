@@ -33,8 +33,8 @@ namespace WorkShopApp.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false)
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,6 +74,8 @@ namespace WorkShopApp.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
                     OrderedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -107,7 +109,7 @@ namespace WorkShopApp.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Address", "CreatedAt", "Email", "FirstName", "LastName", "Password", "Phone", "Role", "UserName" },
-                values: new object[] { 1, "Cairo", new DateTime(2022, 8, 20, 1, 38, 55, 618, DateTimeKind.Local).AddTicks(7752), "admin@gmail.com", "System", "Admin", "admin", "01100903127", 0, "admin" });
+                values: new object[] { 1, "Cairo", new DateTime(2022, 8, 20, 22, 30, 22, 523, DateTimeKind.Local).AddTicks(4902), "admin@gmail.com", "System", "Admin", "admin", "01100903127", 0, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",

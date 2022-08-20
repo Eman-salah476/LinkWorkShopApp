@@ -52,8 +52,8 @@ namespace WorkShopApp.Controllers
             {
                 var isSaved = await _productService.AddProduct(productToAdd);
                 if (!isSaved)
-                    return BadRequest("Fail to save product");
-                
+                    return RedirectToAction(nameof(Create));
+
                 return RedirectToAction(nameof(Index));
             }
             catch

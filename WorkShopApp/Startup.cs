@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,22 @@ namespace WorkShopApp
         {
             services.AddControllersWithViews();
 
+            //Configure Cookies
+            services.AddHttpContextAccessor();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+             .AddCookie(opt =>
+
+             {
+
+                 opt.Cookie.Name = "UserData";
+                 //opt.LoginPath = "/Account/Login";
+                 opt.AccessDeniedPath = "/Product/Index";
+                 opt.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+                 opt.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                 opt.SlidingExpiration = true;
+          
+             });
+
             //Configure Database
             services.AddDbContext<DataContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("DataConnectionStrings")));
@@ -40,6 +57,8 @@ namespace WorkShopApp
             //Configure Services
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +76,7 @@ namespace WorkShopApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

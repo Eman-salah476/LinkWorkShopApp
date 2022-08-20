@@ -37,9 +37,10 @@ namespace WorkShopApp.Models
       
         [Required(ErrorMessage = "*")]
         public string Address { get; set; }
-        public DateTime CreatedAt { get; set; }
-
         public Role Role { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+     
         public ICollection<UserProduct> UserProducts { get; set; }
     }
 }

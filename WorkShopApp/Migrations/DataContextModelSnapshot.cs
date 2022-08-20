@@ -65,7 +65,7 @@ namespace WorkShopApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Discount")
+                    b.Property<int>("Discount")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -135,7 +135,7 @@ namespace WorkShopApp.Migrations
                         {
                             Id = 1,
                             Address = "Cairo",
-                            CreatedAt = new DateTime(2022, 8, 20, 15, 55, 37, 683, DateTimeKind.Local).AddTicks(4902),
+                            CreatedAt = new DateTime(2022, 8, 20, 22, 30, 22, 523, DateTimeKind.Local).AddTicks(4902),
                             Email = "admin@gmail.com",
                             FirstName = "System",
                             LastName = "Admin",
@@ -153,8 +153,16 @@ namespace WorkShopApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("OrderedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");

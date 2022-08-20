@@ -52,6 +52,17 @@ namespace WorkShopApp.Services
             return productModel;
         }
 
+        public async Task<Product> Find(int id)
+        {
+            var fetchedProduct = await _genericRepository.GetById(id);
+            return fetchedProduct;
+        }
 
+        public async Task<bool> Update(Product product)
+        {
+             _genericRepository.Update(product);
+            var isUpdated = await _unitOfWork.Save();
+            return isUpdated;
+        }
     }
 }

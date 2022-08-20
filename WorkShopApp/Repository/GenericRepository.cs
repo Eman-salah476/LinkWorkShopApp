@@ -73,5 +73,17 @@ namespace WorkShopApp.Repository
             }
         }
 
+        public void Update(T entity)
+        {
+            try
+            {
+                _context.Set<T>().Update(entity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't Retrieve Data:{ex.Message}");
+            }
+        }
+
     }
 }

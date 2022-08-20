@@ -10,7 +10,7 @@ using WorkShopApp.Data;
 namespace WorkShopApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220819233856_Initial")]
+    [Migration("20220820203023_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,7 +137,7 @@ namespace WorkShopApp.Migrations
                         {
                             Id = 1,
                             Address = "Cairo",
-                            CreatedAt = new DateTime(2022, 8, 20, 1, 38, 55, 618, DateTimeKind.Local).AddTicks(7752),
+                            CreatedAt = new DateTime(2022, 8, 20, 22, 30, 22, 523, DateTimeKind.Local).AddTicks(4902),
                             Email = "admin@gmail.com",
                             FirstName = "System",
                             LastName = "Admin",
@@ -155,8 +155,16 @@ namespace WorkShopApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("OrderedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
