@@ -1,0 +1,70 @@
+﻿
+@model WorkShopApp.Dtos.ProductModel;
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div>
+    <div><h3>Products</h3></div>
+
+    <div>
+        <form asp-action="Index" asp-controller="Product" method="post">
+
+            @foreach (var product in Model.Products)
+            {
+                <div class="card row">
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <h5 class="card-title">@product.Name</h5>
+                            <span>@product.Price</span>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted">@product.CategoryId</h6>
+                        <p class="card-text">@product.Description</p>
+                        <a href="#" class="card-link">Buy</a>
+                    </div>
+                </div>
+            }
+
+            <table class="table table-responsive">
+                <tr>
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <td>
+                            @if (i != Model.CurrentPageIndex)
+                            {
+                                <a class="PageIndex" href="javascript:FetchData(@i);">@i</a>
+                                @*<a class="PageIndex" href="#">@i</a>*@
+                            }
+                            else
+                            {
+                                <span style="color:red;">@i</span>
+                            }
+                        </td>
+                    }
+                </tr>
+            </table>
+            <input type="hidden" id="CurrentPageIndex" name="pageIndex"/>
+        </form>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    <script>
+        //$(".PageIndex").click(function (e) {
+        //    console.log(this.value);
+        //    //let currentPageIndex = this.value;
+
+        //    //document.getElementById("CurrentPageIndex").value = this.value;
+        //    //document.forms[0].submit();
+        //});
+        function FetchData(index) {
+            console.log(index);
+            document.getElementById("CurrentPageIndex").value = index;
+            document.forms[0].submit();
+        }
+    </script>
+}

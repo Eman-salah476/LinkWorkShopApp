@@ -19,7 +19,7 @@ namespace WorkShopApp.Models
         [Required(ErrorMessage ="*")]
         public double Price { get; set; }
        
-        public int Discount { get; set; }
+        public int? Discount { get; set; }
         
         [Required(ErrorMessage ="*")]
         public int Quantity { get; set; }

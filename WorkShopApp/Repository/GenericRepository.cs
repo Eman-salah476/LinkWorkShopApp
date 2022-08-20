@@ -31,7 +31,7 @@ namespace WorkShopApp.Repository
 
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
             try
             {
