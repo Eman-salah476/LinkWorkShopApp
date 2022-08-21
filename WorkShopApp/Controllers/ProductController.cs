@@ -20,7 +20,6 @@ namespace WorkShopApp.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Categories = new SelectList( await _categoryService.GetCategories(), "Id", "Name");
-            //var fetchedProducts = await _productService.GetProducts(1);
             var fetchedProducts = await _productService.GetProducts();
             var FilteredProducts = _productService.FilterProducts(fetchedProducts, 1);
             return View(FilteredProducts);
@@ -33,7 +32,6 @@ namespace WorkShopApp.Controllers
             var fetchedProducts = await _productService.GetProducts(categoryId);
             var FilteredProducts = _productService.FilterProducts(fetchedProducts, pageIndex);
             FilteredProducts.CategoryId = categoryId;
-            //var fetchedProducts = await _productService.GetProducts(pageIndex, categoryId);
             return View(FilteredProducts);
         }
 
